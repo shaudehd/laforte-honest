@@ -39,35 +39,118 @@
   .sub{max-width:34em;color:#3d4a55;margin:0 0 clamp(26px,3.6vw,38px);font-size:.96rem;line-height:1.8}
 
   /* HERO */
-  .hero{background:radial-gradient(120% 90% at 84% 4%,#1b3a52 0%,rgba(27,58,82,0) 58%),var(--ink);
-    color:#eef1ee;padding:0 0 clamp(42px,5.5vw,68px)}
-  .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
-    padding:18px 0 14px;border-bottom:1px solid rgba(255,255,255,.15);font-size:11.8px;
-    letter-spacing:.03em;color:#9dabb6;line-height:1.6}
-  .htop b{color:#eef1ee;font-weight:700}
-  .htop .r{text-align:right;flex:0 0 auto}
-  .hbody{padding-top:clamp(32px,5vw,58px);position:relative}
-  .kick{font-size:10.8px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 18px}
-  h1{font-family:var(--serif);font-weight:800;font-size:clamp(1.95rem,6.4vw,4.7rem);
-    line-height:1.12;letter-spacing:-.035em;margin:0;color:#f4f4ef;max-width:15em}
-  h1 em{font-style:normal;color:var(--gold-soft)}
-  .hrule{width:58px;height:3px;background:var(--gold);margin:clamp(18px,2.6vw,28px) 0;border:0}
-  .hlead{max-width:29em;font-size:clamp(.95rem,1.5vw,1.06rem);line-height:1.85;color:#bcc7cf;margin:0}
-  .hlead b{color:#fff;font-weight:700}
-  .hlead + .hlead{margin-top:.85em}
-  .cue{margin-top:clamp(22px,3vw,32px);display:inline-block;
-    font-size:12.2px;letter-spacing:.05em;color:var(--gold-soft);text-decoration:none;
-    border-bottom:1px solid rgba(178,138,69,.45);padding-bottom:5px}
+  .hero{position:relative;background:#08131c;color:#eef1ee;overflow:hidden;
+    display:flex;flex-direction:column;justify-content:center;
+    min-height:100vh;min-height:100svh;padding:0 0 clamp(28px,4vw,44px)}
+  .hero .halo{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(64% 52% at 88% 4%,rgba(178,138,69,.20) 0%,rgba(178,138,69,0) 62%),
+               radial-gradient(90% 70% at 6% 100%,rgba(27,58,82,.55) 0%,rgba(27,58,82,0) 64%)}
+  .hero .grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:170px 170px}
+  .hero .wrap{position:relative;z-index:2;width:100%}
+
+  /* 문서 머리 */
+  .doc{display:flex;flex-wrap:wrap;gap:5px 0;align-items:baseline;
+    border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:11px;margin-bottom:clamp(26px,5vw,52px);
+    font-size:10.4px;letter-spacing:.14em;color:#8a98a3;font-variant-numeric:tabular-nums}
+  .doc .dm{flex:0 0 auto;padding-right:16px;margin-right:16px;
+    border-right:1px solid rgba(255,255,255,.14)}
+  .doc .dm:last-child{border-right:0;margin-right:0;padding-right:0}
+  .doc .dm-r{margin-left:auto;border-right:0;padding-right:0}
+  .doc i{font-style:normal;color:#5f6d78;letter-spacing:.2em;font-size:9.2px;margin-right:7px}
+  .doc b{color:#cdd6dc;font-weight:700;letter-spacing:.1em}
+
+  .hbody{position:relative}
+  h1.h1x{font-family:var(--serif);font-weight:800;margin:0;color:#f6f4ee;
+    font-size:clamp(2.05rem,8.4vw,6.1rem);line-height:1.14;letter-spacing:-.045em}
+  h1.h1x .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+  h1.h1x .ln > span{display:block;transform:translateY(112%);
+    animation:rise .78s cubic-bezier(.16,.84,.28,1) forwards}
+  h1.h1x .ln:nth-child(2) > span{animation-delay:.09s}
+  h1.h1x .ln:nth-child(3) > span{animation-delay:.18s}
+  h1.h1x .ln-g > span{color:var(--gold-soft)}
+  @keyframes rise{to{transform:translateY(0)}}
+
+  /* 도장 */
+  .hero .stamp{position:absolute;right:0;top:.15em;width:clamp(96px,13vw,158px);aspect-ratio:1;
+    border:4px solid var(--verm);border-radius:4px;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;transform:rotate(-8deg) scale(1.42);
+    color:var(--verm);font-family:var(--serif);font-weight:800;
+    font-size:clamp(11.5px,1.75vw,19px);line-height:1.32;letter-spacing:.06em;text-align:center;
+    opacity:0;pointer-events:none;mix-blend-mode:screen;
+    box-shadow:inset 0 0 0 2px rgba(176,57,42,.3);
+    animation:thud .46s cubic-bezier(.34,1.5,.5,1) .62s forwards}
+  .hero .stamp::after{content:"";position:absolute;inset:7px;border:1px solid rgba(176,57,42,.45)}
+  @keyframes thud{
+    0%{opacity:0;transform:rotate(-14deg) scale(1.55)}
+    55%{opacity:1;transform:rotate(-8deg) scale(.97)}
+    100%{opacity:.94;transform:rotate(-8deg) scale(1)}
+  }
+  @media (max-width:820px){
+    .hero .stamp{position:relative;top:0;right:auto;margin:20px 0 0;transform:rotate(-5deg) scale(1.42);
+      width:96px;font-size:11px;animation-name:thud-m}
+  }
+  @keyframes thud-m{
+    0%{opacity:0;transform:rotate(-12deg) scale(1.5)}
+    55%{opacity:1;transform:rotate(-5deg) scale(.97)}
+    100%{opacity:.94;transform:rotate(-5deg) scale(1)}
+  }
+
+  .hrule2{width:46px;height:2px;background:var(--gold);border:0;
+    margin:clamp(18px,3vw,26px) 0 clamp(14px,2.4vw,20px);
+    transform:scaleX(0);transform-origin:left;
+    animation:draw .62s cubic-bezier(.16,.84,.28,1) .38s forwards}
+  @keyframes draw{to{transform:scaleX(1)}}
+
+  .hfoot{max-width:31em}
+  .hfoot .hl1{font-size:clamp(.94rem,1.5vw,1.06rem);line-height:1.85;color:#c0cbd3;margin:0;
+    font-variation-settings:normal}
+  .hfoot .hl1 b{color:#fff;font-weight:700}
+  .hfoot .hl2{margin:.7em 0 0;font-size:clamp(.88rem,1.35vw,1rem);line-height:1.85;color:#8c9aa5}
+  .hfoot .hl2 b{color:#dfe6ea;font-weight:700}
+
+  /* 숫자 띠 — 조건표 표 구조 */
+  .hled{margin:clamp(26px,4.4vw,44px) 0 0;display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr);
+    border-top:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.22)}
+  .hled > div{padding:13px 14px 14px 0;min-width:0;border-right:1px solid rgba(255,255,255,.13);
+    opacity:0;transform:translateY(7px);animation:fade .7s ease forwards}
+  .hled > div:last-child{border-right:0;padding-right:0;padding-left:14px}
+  .hled > div:nth-child(2){padding-left:14px}
+  .hled > div:nth-child(1){animation-delay:.72s}
+  .hled > div:nth-child(2){animation-delay:.80s}
+  .hled > div:nth-child(3){animation-delay:.88s}
+  @keyframes fade{to{opacity:1;transform:translateY(0)}}
+  .hled i{display:block;font-style:normal;font-size:9.6px;letter-spacing:.16em;
+    color:#7c8a95;margin-bottom:5px;text-transform:uppercase;font-weight:700}
+  .hled b{display:block;font-family:var(--serif);font-weight:800;
+    font-size:clamp(1rem,2.1vw,1.42rem);letter-spacing:-.02em;line-height:1.2;
+    font-variant-numeric:tabular-nums;color:#f2f0e8}
+  .hled em{display:block;font-style:normal;font-size:10.2px;color:#6f7d88;margin-top:3px;
+    letter-spacing:.02em}
+  .hled .neg b{color:#e0806f}
+  @media (max-width:640px){
+    .hled{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto}
+    .hled > div:nth-child(1){border-bottom:1px solid rgba(255,255,255,.13)}
+    .hled > div:nth-child(2){border-right:0;border-bottom:1px solid rgba(255,255,255,.13)}
+    .hled > div:nth-child(3){grid-column:1/-1;padding-left:0;padding-top:12px}
+  }
+
+  .cue{margin-top:clamp(22px,3.6vw,34px);display:inline-flex;align-items:center;gap:9px;
+    font-size:11.6px;letter-spacing:.1em;color:var(--gold-soft);text-decoration:none;
+    border-bottom:1px solid rgba(178,138,69,.45);padding-bottom:6px;
+    opacity:0;animation:fade .6s ease 1s forwards}
+  .cue .ar{display:inline-block;animation:bob 2.4s ease-in-out 1.6s infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
   .cue:hover{color:#fff;border-bottom-color:#fff}
-  .stamp{position:absolute;right:0;top:clamp(30px,5vw,54px);width:clamp(88px,12vw,124px);aspect-ratio:1;
-    border:3px solid var(--verm);border-radius:3px;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;transform:rotate(-7deg);color:var(--verm);
-    font-family:var(--serif);font-weight:800;font-size:clamp(10.5px,1.5vw,15px);
-    line-height:1.34;letter-spacing:.05em;text-align:center;opacity:.9;pointer-events:none;
-    box-shadow:inset 0 0 0 2px rgba(176,57,42,.25)}
-  .stamp::after{content:"";position:absolute;inset:5px;border:1px solid rgba(176,57,42,.4)}
-  @media (max-width:900px){
-    .stamp{position:static;margin:26px 0 0;transform:rotate(-4deg);width:92px;font-size:10.5px}
+
+  @media (prefers-reduced-motion:reduce){
+    h1.h1x .ln > span{transform:none;animation:none}
+    .hero .stamp{opacity:.94;animation:none;transform:rotate(-8deg)}
+    .hrule2{transform:scaleX(1);animation:none}
+    .hled > div,.cue{opacity:1;transform:none;animation:none}
+    .cue .ar{animation:none}
   }
 
   /* LEDGER */
@@ -494,21 +577,39 @@
 </style>
 </head>
 <body>
-<header class="hero">
+<header class="hero" id="top">
+  <div class="halo" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="htop">
-      <div><b>라포르테 공도</b> · 경기 안성시 공도읍<br>잔여 148세대 · 즉시 입주</div>
-      <div class="r"><b>노명수</b><br>이 일을 한 지 30년</div>
+    <div class="doc">
+      <span class="dm"><i>문서</i><b>LF-2026-1113</b></span>
+      <span class="dm"><i>작성</i><b>노명수</b></span>
+      <span class="dm"><i>경력</i><b>30년</b></span>
+      <span class="dm dm-r"><i>대상</i><b>잔여 148세대 · 즉시 입주</b></span>
     </div>
+
     <div class="hbody">
-      <p class="kick">분양 문의 안내</p>
-      <h1>집을 팝니다.<br>그러니 <em>사러 오지 마세요.</em></h1>
-      <hr class="hrule">
-      <p class="hlead">내 집은 <b>내가 결정하는 것</b>입니다.<br>누구의 설득에 기대지 않아도 됩니다.</p>
-      <p class="hlead">그래서 사은품도, 입주지원금도 없습니다.<br>대신 <b>30년 동안 나가는 돈</b>을 적어 두었습니다.</p>
-      <a class="cue" href="#ledger">숫자부터 보시겠습니까 ↓</a>
+      <h1 class="h1x">
+        <span class="ln"><span>집을 팝니다.</span></span>
+        <span class="ln"><span>그러니</span></span>
+        <span class="ln ln-g"><span>사러 오지 마세요.</span></span>
+      </h1>
       <div class="stamp" aria-hidden="true">살 사람만<br>오십시오</div>
+
+      <hr class="hrule2">
+      <div class="hfoot">
+        <p class="hl1">내 집은 <b>내가 결정하는 것</b>입니다. 누구의 설득에 기대지 않아도 됩니다.</p>
+        <p class="hl2">그래서 사은품도, 입주지원금도 없습니다. 대신 <b>30년 동안 나가는 돈</b>을 적어 두었습니다.</p>
+      </div>
     </div>
+
+    <div class="hled">
+      <div><i>사은품 · 입주지원금</i><b>500만원</b><em>1회성</em></div>
+      <div><i>금리 0.5%p 인하</i><b>2,170만원</b><em>매달 60,273원 × 360회</em></div>
+      <div class="neg"><i>차액</i><b>1,670만원</b><em>사은품을 받는 쪽이 손해</em></div>
+    </div>
+
+    <a class="cue" href="#ledger">숫자부터 보시겠습니까<span class="ar">↓</span></a>
   </div>
 </header>
 
