@@ -69,9 +69,20 @@
   .doc i{font-style:normal;color:#5f6d78;letter-spacing:.2em;font-size:9.2px;margin-right:7px}
   .doc b{color:#cdd6dc;font-weight:700;letter-spacing:.1em}
 
+  .hmast{margin:0 0 clamp(17px,2.6vw,26px)}
+  .hmast .eb{font-size:11px;letter-spacing:.24em;color:var(--gold);font-weight:800;
+    margin:0 0 clamp(8px,1.4vw,13px);display:block}
+  .hmast h2{font-family:var(--serif);font-weight:800;margin:0;color:#f8f6f0;
+    font-size:clamp(2.1rem,6.6vw,4.6rem);line-height:1;letter-spacing:-.04em}
+  .hmast h2 em{font-style:normal;color:var(--gold-soft)}
+  .hmast .sb{display:flex;align-items:center;gap:12px;margin-top:clamp(10px,1.6vw,15px)}
+  .hmast .sb .ln{flex:1;height:1px;background:rgba(178,138,69,.45);max-width:120px}
+  .hmast .sb span{font-size:clamp(10.6px,1.3vw,12.6px);letter-spacing:.1em;color:#93a1ab;
+    font-weight:700;flex:0 0 auto}
+  .hmast .sb b{color:#e2ddd0;font-weight:800}
   .hbody{position:relative}
   h1.h1x{font-family:var(--serif);font-weight:800;margin:0;color:#f6f4ee;
-    font-size:clamp(2.05rem,8.4vw,6.1rem);line-height:1.14;letter-spacing:-.045em}
+    font-size:clamp(1.5rem,4.5vw,3.25rem);line-height:1.2;letter-spacing:-.04em}
   h1.h1x .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
   h1.h1x .ln > span{display:block;transform:translateY(112%);
     animation:rise .78s cubic-bezier(.16,.84,.28,1) forwards}
@@ -157,6 +168,17 @@
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
   .cue:hover{color:#fff;border-bottom-color:#fff}
 
+  @media (max-width:600px){
+    .hmast{margin-bottom:12px}
+    .hmast h2{font-size:2.05rem}
+    .hmast .sb{margin-top:8px}
+    h1.h1x{font-size:1.42rem;line-height:1.26}
+    .hrule2{margin:11px 0 10px}
+    .hfoot .hl1{font-size:.86rem;line-height:1.72}
+    .hfoot .hl2{font-size:.8rem;line-height:1.68;margin-top:.55em}
+    .hled > div{padding:9px 7px 10px 0}
+    .cue{margin-top:14px;font-size:10.8px}
+  }
   @media (prefers-reduced-motion:reduce){
     h1.h1x .ln > span{transform:none;animation:none}
     .hero .stamp{opacity:.94;animation:none;transform:rotate(-8deg)}
@@ -602,6 +624,11 @@
     </div>
 
     <div class="hbody">
+      <div class="hmast">
+        <span class="eb">준공 완료 · 오늘 열쇠</span>
+        <h2>라포르테 <em>공도</em></h2>
+        <div class="sb"><span class="ln"></span><span><b>지어진 집</b>입니다</span><span class="ln"></span></div>
+      </div>
       <h1 class="h1x">
         <span class="ln"><span>집을 팝니다.</span></span>
         <span class="ln"><span>그러니</span></span>
@@ -611,7 +638,7 @@
 
       <hr class="hrule2">
       <div class="hfoot">
-        <p class="hl1">내 집은 <b>내가 결정하는 것</b>입니다. 누구의 설득에 기대지 않아도 됩니다.</p>
+        <p class="hl1">청약통장으로 사는 <b>미래의 집</b>이 아닙니다. 지금 서 있고, 오늘 문을 열 수 있는 집입니다.</p>
         <p class="hl2">그래서 사은품도, 입주지원금도 없습니다. 대신 <b>30년 동안 나가는 돈</b>을 적어 두었습니다.</p>
       </div>
     </div>
@@ -832,7 +859,7 @@
     <div class="fl">
       <span><b>라포르테 공도</b> 분양홍보관</span>
       <span>경기 안성시 공도읍</span>
-      <span>노명수 <b>010-3144-0016</b></span>
+      <span>노명수 <a href="tel:+821031440016" style="color:#dcc79e;text-decoration:none;border-bottom:1px solid rgba(220,199,158,.45);font-weight:800">010-3144-0016</a></span>
     </div>
     <div class="biz">
       <b>사업자 정보</b> — 광고 집행 전 아래 항목을 확정해 채워 주십시오.
@@ -848,7 +875,12 @@
     var note = document.getElementById('telNote'), btn = document.getElementById('copyTel');
     function show(){ if (note) note.classList.add('on'); }
     document.querySelectorAll('a[data-tel]').forEach(function(a){
-      a.addEventListener('click', function(){ setTimeout(show, 900); });
+      a.addEventListener('click', function(ev){
+        var num = a.getAttribute('data-tel');
+        setTimeout(show, 1100);
+        /* 일부 인앱 브라우저는 tel: 앵커를 무시한다 — 명시적으로 한 번 더 시도 */
+        try { if (!ev.defaultPrevented) { setTimeout(function(){ window.location.href = 'tel:' + num; }, 60); } } catch(e){}
+      });
     });
     if (btn) btn.addEventListener('click', function(){
       var t = '010-3144-0016';
