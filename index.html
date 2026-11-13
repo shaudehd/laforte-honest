@@ -831,7 +831,7 @@
     <div class="fl">
       <span><b>라포르테 공도</b> 분양홍보관</span>
       <span>경기 안성시 공도읍</span>
-      <span>노명수 <b>010-3144-0016</b></span>
+      <span>노명수 <a href="tel:+821031440016" style="color:#dcc79e;text-decoration:none;border-bottom:1px solid rgba(220,199,158,.45);font-weight:800">010-3144-0016</a></span>
     </div>
     <div class="biz">
       <b>사업자 정보</b> — 광고 집행 전 아래 항목을 확정해 채워 주십시오.
@@ -847,7 +847,12 @@
     var note = document.getElementById('telNote'), btn = document.getElementById('copyTel');
     function show(){ if (note) note.classList.add('on'); }
     document.querySelectorAll('a[data-tel]').forEach(function(a){
-      a.addEventListener('click', function(){ setTimeout(show, 900); });
+      a.addEventListener('click', function(ev){
+        var num = a.getAttribute('data-tel');
+        setTimeout(show, 1100);
+        /* 일부 인앱 브라우저는 tel: 앵커를 무시한다 — 명시적으로 한 번 더 시도 */
+        try { if (!ev.defaultPrevented) { setTimeout(function(){ window.location.href = 'tel:' + num; }, 60); } } catch(e){}
+      });
     });
     if (btn) btn.addEventListener('click', function(){
       var t = '010-3144-0016';
